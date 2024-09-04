@@ -6,21 +6,19 @@ from sklearn.preprocessing import LabelEncoder
 from core import preprocess, prompt
 from core.models import PLS_DA_plot
 
-# Use the SAF's features as the "y" vector
-df_SAF = pd.read_csv("outputs/Figure9/56Features.csv")
-y = df_SAF["Structure type"]
-
-# Initialize and fit the LabelEncoder
-encoder = LabelEncoder()
-y_encoded = encoder.fit_transform(y)
-prompt.print_label_mapping(encoder)
-
+# Data paths
 csv_file_paths = [
-    "outputs/Figure9/56Features.csv",
-    "outputs/Figure9/Blue_Red_features.csv",
+    "figure_8_9/56Features.csv",
+    "figure_8_9/Blue_Red_features.csv",
 ]
 
 for i, csv_file_path in enumerate(csv_file_paths, start=1):
+    # Read df
+    df = pd.read_csv(csv_file_path)
+    y = df["Structure type"]
+    encoder = LabelEncoder()
+    y_encoded = encoder.fit_transform(y)
+    prompt.print_label_mapping(encoder)
     start_time = time.perf_counter()
 
     # Load the dataset
