@@ -8,7 +8,8 @@ from sklearn.preprocessing import LabelEncoder
 
 from core import folder, preprocess, prompt
 
-def plot_two_component(X, y, feature_file_path):
+
+def plot_two_component(X, y, feature_file_path, figure_number):
     # Convert string labels to integers
     encoder = LabelEncoder()
     y_encoded = encoder.fit_transform(y)
@@ -27,19 +28,33 @@ def plot_two_component(X, y, feature_file_path):
         np.var(X_pls[:, i]) / total_variance_X for i in range(pls.n_components)
     ]
 
-    # Define the file path for saving the plot
-    plot_path = folder.create_folder_get_output_path(
-        "PLS_DA_plot",
-        feature_file_path,
-        "proxy",
-        "png",
-    )
+
     # Same color to TlI, FeB-b, FeAs, NiAs, CoSn
     unique = np.unique(y_encoded)
     colors = [plt.cm.jet(float(i) / max(unique)) for i in unique]
 
     # Define the same color scheme for these specific labels
-    same_color_labels = ["TlI", "FeB-b", "FeAs", "NiAs", "CoSn"]
+    if figure_number == 1:
+        same_color_labels = ["TlI", "FeB-b", "FeAs", "NiAs", "CoSn"]
+
+    if figure_number == 2:
+        same_color_labels = [
+            "CsCl",
+            "CuAu",
+            "FeAs",
+            "FeB-b",
+            "NaCl",
+            "NiAs",
+            "TlI",
+        ]
+        
+    # Define the file path for saving the plot
+    plot_path = folder.create_folder_get_output_path(
+        "PLS_DA_plot",
+        feature_file_path,
+        f"figure_8_{figure_number}",
+        "png",
+    )
 
     with plt.style.context("ggplot"):
         for i, label in enumerate(unique):
@@ -76,7 +91,7 @@ def plot_two_component(X, y, feature_file_path):
 
         plt.xlabel(f"LV 1 ({(explained_variance_X[0] * 100):.2f} %)")
         plt.ylabel(f"LV 2 ({(explained_variance_X[1] * 100):.2f} %)")
-        plt.legend(loc="lower left")
+        plt.legend(loc="lower right")
         plt.savefig(plot_path, dpi=300)  # Save the plot as a PNG file
         plt.close()
         # plt.show()
@@ -97,4 +112,5 @@ y = df_SAF["Structure"]
 X_df, X, columns = preprocess.prepare_X_block(SAF_CAF_feature_path)
 
 
-plot_two_component(X, y, SAF_CAF_feature_path)
+plot_two_component(X, y, SAF_CAF_feature_path, 1)
+plot_two_component(X, y, SAF_CAF_feature_path, 2)

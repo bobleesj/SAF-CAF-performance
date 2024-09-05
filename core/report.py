@@ -4,7 +4,6 @@ from core import folder
 
 
 def record_model_performance(model_report, model_name, feature_file_path):
-
     # Convert the dictionary to a DataFrame
     report_df = pd.DataFrame(model_report).transpose()
 
