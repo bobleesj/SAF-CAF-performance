@@ -74,10 +74,20 @@ def plot_two_component(X, y, feature_file_path, figure_number):
             ]
 
             # Assign the same color for specific labels
-            if actual_label in same_color_labels:
-                color = "red"
-            else:
-                color = colors[i]
+            
+            # For Figure 8.1
+            if figure_number == 1:
+                if actual_label in same_color_labels:
+                    color = "red"
+                else:
+                    color = colors[i]
+                    
+            # For Figure 8.2 keep either either red for the same and green for the others
+            if figure_number == 2:
+                if actual_label in same_color_labels:
+                    color = "red"
+                else:
+                    color = colors[4]
 
             # Plot the points
             plt.scatter(
