@@ -35,10 +35,11 @@ def plot_two_component(X, y, feature_file_path, figure_number):
 
     # Define the same color scheme for these specific labels
     if figure_number == 1:
-        same_color_labels = ["TlI", "FeB-b", "FeAs", "NiAs", "CoSn"]
+        same_color_label_set_1 = ["TlI", "FeB-b"]
+        same_color_label_set_2 = ["FeAs", "NiAs"]
 
     if figure_number == 2:
-        same_color_labels = [
+        same_color_label_set_1 = [
             "CsCl",
             "CuAu",
             "FeAs",
@@ -77,14 +78,16 @@ def plot_two_component(X, y, feature_file_path, figure_number):
             
             # For Figure 8.1
             if figure_number == 1:
-                if actual_label in same_color_labels:
+                if actual_label in same_color_label_set_1:
                     color = "red"
+                elif actual_label in same_color_label_set_2:
+                    color = "green"
                 else:
                     color = colors[i]
                     
             # For Figure 8.2 keep either either red for the same and green for the others
             if figure_number == 2:
-                if actual_label in same_color_labels:
+                if actual_label in same_color_label_set_1:
                     color = "red"
                 else:
                     color = colors[4]
