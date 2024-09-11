@@ -6,10 +6,10 @@ This repository contains model performance on crystal structure classification f
 
 ```bash
 # Download the repository
-git clone https://www.github.com/bobleesj/CAF_SAF_perfomance.com
+git clone https://www.github.com/bobleesj/CAF_SAF_perfomance
 
 # Enter the folder
-cd CAF_SAF_perfomance.com
+cd CAF_SAF_perfomance
 ```
 
 Install packages listed in `requirements.txt`:
