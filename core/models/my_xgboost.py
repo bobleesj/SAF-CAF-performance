@@ -50,11 +50,11 @@ def plot_XGBoost_feature_importance(X_df, y_encoded, csv_file_path):
     )  # Since it's sorted ascending, tail will give the largest
 
     # Create a horizontal bar plot with adjusted dimensions and spacing
-    plt.figure(figsize=(8, 8))  # Adjust figure size for the number of features
+    plt.figure(figsize=(5, 8))  # Adjust figure size for the number of features
     ax = plt.subplot(111)  # Add a subplot to manipulate the space for the axis
-
+    
     # Plotting
-    top_gain_features.plot(kind="barh", color="skyblue", ax=ax)
+    top_gain_features.plot(kind="barh", color="darkblue", ax=ax)
 
     output_path = folder.create_folder_get_output_path(
         "XGBoost",
@@ -67,8 +67,14 @@ def plot_XGBoost_feature_importance(X_df, y_encoded, csv_file_path):
         left=0.5
     )  # Adjust this value based on your actual label lengths
 
+    # Change the font size of x and y
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+
+    # Make the y-axis label narrower in font width
+
     plt.xlabel("Gain Score")  # X-axis label for scores
-    plt.title("Top 10 Feature Importances by Gain")
+    # plt.title("Top 10 Feature Importances by Gain")
     # Save high qualitty image with tight layout
     plt.savefig(output_path, dpi=300, bbox_inches="tight")
     # plt.show()
