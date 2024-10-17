@@ -59,8 +59,7 @@ def save_feature_importance(
     # Calculate the variance explained by each component for X
     total_variance_X = np.var(X, axis=0).sum()
     explained_variance_X = [
-        np.var(X_pls[:, i]) / total_variance_X
-        for i in range(best_n_components)
+        np.var(X_pls[:, i]) / total_variance_X for i in range(best_n_components)
     ]
 
     # Create column names with explained variance
@@ -114,9 +113,7 @@ def generate_classification_report(X_scaled, y, pls):
         warnings.simplefilter("ignore", category=UndefinedMetricWarning)
 
         # Perform cross-validation and get continuous predictions
-        y_scores = cross_val_predict(
-            pls, X_scaled, y_encoded, cv=skf, method="predict"
-        )
+        y_scores = cross_val_predict(pls, X_scaled, y_encoded, cv=skf, method="predict")
 
         # Convert continuous predictions to nearest class labels
         y_pred = np.rint(y_scores).astype(int)

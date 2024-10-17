@@ -1,5 +1,3 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.cross_decomposition import PLSRegression
@@ -40,16 +38,8 @@ def plot_two_component(X, y, feature_file_path):
 
     with plt.style.context("ggplot"):
         for i, label in enumerate(unique):
-            xi = [
-                X_pls[j, 0]
-                for j in range(len(X_pls[:, 0]))
-                if y_encoded[j] == label
-            ]
-            yi = [
-                X_pls[j, 1]
-                for j in range(len(X_pls[:, 1]))
-                if y_encoded[j] == label
-            ]
+            xi = [X_pls[j, 0] for j in range(len(X_pls[:, 0])) if y_encoded[j] == label]
+            yi = [X_pls[j, 1] for j in range(len(X_pls[:, 1])) if y_encoded[j] == label]
             plt.scatter(
                 xi,
                 yi,

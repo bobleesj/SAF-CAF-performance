@@ -26,9 +26,7 @@ def run_XGBoost(X_df, y):
     y_pred_decoded = encoder.inverse_transform(y_pred)
 
     # Evaluate the model
-    class_report = classification_report(
-        y, y_pred_decoded, digits=3, output_dict=True
-    )
+    class_report = classification_report(y, y_pred_decoded, digits=3, output_dict=True)
     return class_report
 
 

@@ -51,7 +51,7 @@ def drop_columns(df):
     return df
 
 
-def prepare_X_block(csv_file_path):
+def prepare_standarlize_X_block_(csv_file_path):
     df = pd.read_csv(csv_file_path)
     X_df = drop_columns(df)
     df, removed_col_count = clean_dataframe(df)

@@ -12,9 +12,7 @@ def find_csv_files(script_dir_path):
     for root, dirs, files in os.walk(script_dir_path, topdown=True):
         # Modify dirs in-place to skip certain directories
         dirs[:] = [
-            d
-            for d in dirs
-            if not any(skip_dir in d.lower() for skip_dir in skip_dirs)
+            d for d in dirs if not any(skip_dir in d.lower() for skip_dir in skip_dirs)
         ]
 
         for file in files:
