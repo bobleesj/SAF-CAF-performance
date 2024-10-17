@@ -28,7 +28,7 @@ for i, csv_file_path in enumerate(csv_file_paths, start=1):
     start_time = time.perf_counter()
 
     # Load the dataset
-    X_df, X, columns = preprocess.prepare_X_block(csv_file_path)
+    X_df, X, columns = preprocess.prepare_standarlize_X_block_(csv_file_path)
     print(
         f"\nProcessing {csv_file_path} with {X.shape[1]} features ({i}/{len(csv_file_paths)})."
     )
@@ -47,18 +47,14 @@ for i, csv_file_path in enumerate(csv_file_paths, start=1):
     best_n_components = PLS_DA.find_best_n_dim(X, y_encoded, csv_file_path)
     best_pls = PLSRegression(n_components=best_n_components)
     PLA_DA_model_report = PLS_DA.generate_classification_report(X, y, best_pls)
-    report.record_model_performance(
-        PLA_DA_model_report, "PLS_DA", csv_file_path
-    )
+    report.record_model_performance(PLA_DA_model_report, "PLS_DA", csv_file_path)
     PLS_DA.save_feature_importance(
         X, columns, y_encoded, best_pls, best_n_components, csv_file_path
     )
 
     print("(4/4) Running XGBoost model...")
     XGBoost_model_report = my_xgboost.run_XGBoost(X_df, y)
-    report.record_model_performance(
-        XGBoost_model_report, "XGBoost", csv_file_path
-    )
+    report.record_model_performance(XGBoost_model_report, "XGBoost", csv_file_path)
     my_xgboost.plot_XGBoost_feature_importance(X_df, y_encoded, csv_file_path)
 
     elapsed_time = time.perf_counter() - start_time

@@ -28,7 +28,6 @@ def plot_two_component(X, y, feature_file_path, figure_number):
         np.var(X_pls[:, i]) / total_variance_X for i in range(pls.n_components)
     ]
 
-
     # Same color to TlI, FeB-b, FeAs, NiAs, CoSn
     unique = np.unique(y_encoded)
     colors = [plt.cm.jet(float(i) / max(unique)) for i in unique]
@@ -48,7 +47,7 @@ def plot_two_component(X, y, feature_file_path, figure_number):
             "NiAs",
             "TlI",
         ]
-        
+
     # Define the file path for saving the plot
     plot_path = folder.create_folder_get_output_path(
         "PLS_DA_plot",
@@ -63,19 +62,11 @@ def plot_two_component(X, y, feature_file_path, figure_number):
             actual_label = encoder.inverse_transform([label])[0]
 
             # Extract points for the current label
-            xi = [
-                X_pls[j, 0]
-                for j in range(len(X_pls[:, 0]))
-                if y_encoded[j] == label
-            ]
-            yi = [
-                X_pls[j, 1]
-                for j in range(len(X_pls[:, 1]))
-                if y_encoded[j] == label
-            ]
+            xi = [X_pls[j, 0] for j in range(len(X_pls[:, 0])) if y_encoded[j] == label]
+            yi = [X_pls[j, 1] for j in range(len(X_pls[:, 1])) if y_encoded[j] == label]
 
             # Assign the same color for specific labels
-            
+
             # For Figure 8.1
             if figure_number == 1:
                 if actual_label in same_color_label_set_1:
@@ -84,7 +75,7 @@ def plot_two_component(X, y, feature_file_path, figure_number):
                     color = "green"
                 else:
                     color = colors[i]
-                    
+
             # For Figure 8.2 keep either either red for the same and green for the others
             if figure_number == 2:
                 if actual_label in same_color_label_set_1:
@@ -115,14 +106,12 @@ script_dir_path = os.getcwd()
 output_dir_path = os.path.join(script_dir_path, "outputs")
 
 # outputs/SAF_CAF/binary_features.csv
-SAF_CAF_feature_path = os.path.join(
-    output_dir_path, "SAF_CAF", "binary_features.csv"
-)
+SAF_CAF_feature_path = os.path.join(output_dir_path, "SAF_CAF", "binary_features.csv")
 
 df_SAF = pd.read_csv(SAF_CAF_feature_path)
 y = df_SAF["Structure"]
 
-X_df, X, columns = preprocess.prepare_X_block(SAF_CAF_feature_path)
+X_df, X, columns = preprocess.prepare_standarlize_X_block_(SAF_CAF_feature_path)
 
 
 plot_two_component(X, y, SAF_CAF_feature_path, 1)
